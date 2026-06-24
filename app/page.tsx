@@ -1,19 +1,28 @@
-import { Button } from "@/components/ui/button"
+import { CtaSection } from "@/components/landing/cta-section"
+import { CrossPlatform } from "@/components/landing/cross-platform"
+import { Footer } from "@/components/landing/footer"
+import { Header } from "@/components/landing/header"
+import { Hero } from "@/components/landing/hero"
+import { OutrunBots } from "@/components/landing/outrun-bots"
+import { TokenTicker } from "@/components/landing/token-ticker"
+import { WhyChadWallet } from "@/components/landing/why-chadwallet"
 
 export default function Page() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+    <div className="min-h-svh overflow-x-hidden bg-[#080404]">
+      <TokenTicker className="fixed top-0 z-[60] w-full border-b border-white/[0.06]" />
+      <div className="pb-10 pt-9">
+        <Header />
+        <main>
+          <Hero />
+          <WhyChadWallet />
+          <OutrunBots />
+          <CrossPlatform />
+          <CtaSection />
+        </main>
+        <Footer />
       </div>
+      <TokenTicker className="fixed bottom-0 z-[60] w-full border-t border-white/[0.06] pb-[env(safe-area-inset-bottom)]" />
     </div>
   )
 }
