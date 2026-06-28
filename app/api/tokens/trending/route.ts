@@ -1,31 +1,15 @@
 import { NextResponse } from "next/server"
 
-import { fetchTrendingTokens } from "@/lib/birdeye"
-import { TICKER_TOKENS } from "@/lib/constants"
+import { getTickerTrending } from "@/lib/queries/trending.server"
 
-export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 export async function GET() {
   try {
-    const tokens = await fetchTrendingTokens(12)
-
-    if (!tokens?.length) {
-      return NextResponse.json({
-        tokens: TICKER_TOKENS,
-        source: "fallback",
-      })
-    }
-
-    return NextResponse.json({
-      tokens,
-      source: "birdeye",
-    })
+    const tokens = await getTickerTrending()
+    return NextResponse.json({ tokens })
   } catch (error) {
     console.error("Failed to fetch trending tokens:", error)
-
-    return NextResponse.json({
-      tokens: TICKER_TOKENS,
-      source: "fallback",
-    })
+    return NextResponse.json({ tokens: [] })
   }
 }

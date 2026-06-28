@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google"
 
 import "./globals.css"
+import { AppProviders } from "@/components/providers/app-providers"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
@@ -61,9 +62,11 @@ export default function RootLayout({
       )}
     >
       <body className="bg-[#080404] font-sans text-white">
-        <ThemeProvider defaultTheme="dark" forcedTheme="dark">
-          {children}
-        </ThemeProvider>
+        <AppProviders>
+          <ThemeProvider defaultTheme="dark" forcedTheme="dark">
+            {children}
+          </ThemeProvider>
+        </AppProviders>
       </body>
     </html>
   )

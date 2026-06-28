@@ -40,7 +40,7 @@ export function formatTickerChange(percent: number | undefined): {
 export function mapBirdEyeToTickers(
   tokens: BirdEyeTrendingToken[]
 ): TickerToken[] {
-  return tokens
+  return dedupeTrendingTokens(tokens)
     .filter((token) => token.symbol)
     .map((token) => {
       const { change, positive } = formatTickerChange(
@@ -55,4 +55,38 @@ export function mapBirdEyeToTickers(
         icon: token.logoURI,
       }
     })
+}
+
+export function mapTokenDetailsToTickers(
+  tokens: Array<{
+    symbol: string
+    address: string
+    priceChange24h: number
+    icon?: string
+  }>
+): TickerToken[] {
+  return tokens.map((token) => {
+    const { change, positive } = formatTickerChange(token.priceChange24h)
+
+    return {
+      symbol: token.symbol,
+      change,
+      positive,
+      address: token.address,
+      icon: token.icon,
+    }
+  })
+}
+
+export function dedupeTrendingTokens<T extends { address?: string }>(
+  tokens: T[]
+): T[] {
+  const seen = new Set<string>()
+
+  return tokens.filter((token) => {
+    if (!token.address) return false
+    if (seen.has(token.address)) return false
+    seen.add(token.address)
+    return true
+  })
 }

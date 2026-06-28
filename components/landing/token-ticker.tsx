@@ -1,40 +1,29 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import Link from "next/link"
+import { useMemo } from "react"
 
-import { TICKER_TOKENS, type TickerToken } from "@/lib/constants"
+import { TokenImage } from "@/components/ui/token-image"
+import { useTradingTrending } from "@/hooks/queries/use-trading-trending"
+import { mapTokenDetailsToTickers } from "@/lib/ticker"
 import { cn } from "@/lib/utils"
 
-const REFRESH_MS = 60_000
-
-function TokenIcon({ symbol, icon }: { symbol: string; icon?: string }) {
-  const [failed, setFailed] = useState(false)
-
-  if (!icon || failed) {
-    return (
-      <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/10 text-[8px] font-bold uppercase text-white/70 sm:h-5 sm:w-5 sm:text-[9px]">
-        {symbol.slice(0, 1)}
-      </span>
-    )
-  }
-
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={icon}
-      alt=""
-      width={20}
-      height={20}
-      className="h-4 w-4 shrink-0 rounded-full object-cover ring-1 ring-white/10 sm:h-5 sm:w-5"
-      onError={() => setFailed(true)}
-    />
-  )
-}
-
-function TickerItem({ symbol, change, positive, icon }: TickerToken) {
-  return (
-    <span className="inline-flex shrink-0 items-center gap-1.5 px-3 sm:gap-2 sm:px-5">
-      <TokenIcon symbol={symbol} icon={icon} />
+function TickerItem({
+  symbol,
+  change,
+  positive,
+  icon,
+  address,
+}: ReturnType<typeof mapTokenDetailsToTickers>[number]) {
+  const content = (
+    <>
+      <TokenImage
+        symbol={symbol}
+        address={address}
+        icon={icon}
+        className="h-4 w-4 sm:h-5 sm:w-5"
+        fallbackClassName="h-4 w-4 text-[8px] sm:h-5 sm:w-5 sm:text-[9px]"
+      />
       <span className="max-w-[5.5rem] truncate text-xs font-medium text-white/80 sm:max-w-none sm:text-[13px]">
         ${symbol}
       </span>
@@ -46,40 +35,33 @@ function TickerItem({ symbol, change, positive, icon }: TickerToken) {
       >
         {change}
       </span>
+    </>
+  )
+
+  if (address && !address.startsWith("fallback-")) {
+    return (
+      <Link
+        href={`/trade/${address}`}
+        className="inline-flex shrink-0 items-center gap-1.5 px-3 transition-opacity hover:opacity-80 sm:gap-2 sm:px-5"
+      >
+        {content}
+      </Link>
+    )
+  }
+
+  return (
+    <span className="inline-flex shrink-0 items-center gap-1.5 px-3 sm:gap-2 sm:px-5">
+      {content}
     </span>
   )
 }
 
 export function TokenTicker({ className }: { className?: string }) {
-  const [tokens, setTokens] = useState<TickerToken[]>(TICKER_TOKENS)
+  const { data: tokens = [] } = useTradingTrending()
+  const tickerTokens = useMemo(() => mapTokenDetailsToTickers(tokens), [tokens])
+  const items = [...tickerTokens, ...tickerTokens]
 
-  useEffect(() => {
-    let active = true
-
-    async function loadTickers() {
-      try {
-        const response = await fetch("/api/tokens/trending")
-        if (!response.ok) return
-
-        const data = (await response.json()) as { tokens?: TickerToken[] }
-        if (active && data.tokens?.length) {
-          setTokens(data.tokens)
-        }
-      } catch {
-        // Keep showing current tokens on error
-      }
-    }
-
-    loadTickers()
-    const interval = setInterval(loadTickers, REFRESH_MS)
-
-    return () => {
-      active = false
-      clearInterval(interval)
-    }
-  }, [])
-
-  const items = [...tokens, ...tokens]
+  if (tickerTokens.length === 0) return null
 
   return (
     <div
@@ -91,9 +73,9 @@ export function TokenTicker({ className }: { className?: string }) {
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-landing-ticker to-transparent sm:w-20" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-landing-ticker to-transparent sm:w-20" />
       <div className="flex w-max animate-marquee items-center py-2 sm:py-2.5">
-        {items.map((token, i) => (
+        {items.map((token, index) => (
           <TickerItem
-            key={`${token.symbol}-${token.address ?? i}-${i}`}
+            key={`${token.address ?? token.symbol}-${index}`}
             {...token}
           />
         ))}

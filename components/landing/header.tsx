@@ -14,6 +14,15 @@ export function Header() {
 
         <nav className="hidden items-center gap-1 md:flex">
           <Link
+            href="/trade"
+            className={cn(
+              buttonVariants({ variant: "ghost" }),
+              "text-[14px] font-medium text-white/60 hover:bg-white/[0.04] hover:text-white"
+            )}
+          >
+            Trade
+          </Link>
+          <Link
             href="#why-chadwallet"
             className={cn(
               buttonVariants({ variant: "ghost" }),
