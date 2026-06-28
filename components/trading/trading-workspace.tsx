@@ -25,7 +25,7 @@ export function TradingWorkspace() {
     prefetchTokenQueries(queryClient, params.address)
   }, [params.address, queryClient])
 
-  const showPageLoader = bundlePending && !bundle?.overview
+  const showPageLoader = bundlePending && !bundle
 
   return (
     <>
