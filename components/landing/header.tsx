@@ -22,7 +22,7 @@ export function Header() {
           >
             Trade
           </Link>
-          <Link
+          {/* <Link
             href="#why-chadwallet"
             className={cn(
               buttonVariants({ variant: "ghost" }),
@@ -30,7 +30,7 @@ export function Header() {
             )}
           >
             Features
-          </Link>
+          </Link> */}
           <Link
             href="#download"
             className={cn(
