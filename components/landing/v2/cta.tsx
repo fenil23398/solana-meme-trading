@@ -1,9 +1,17 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { motion, useReducedMotion } from "motion/react"
 
 import { DownloadButton } from "@/components/landing/v2/download-button"
 
+const EASE = [0.22, 1, 0.36, 1] as const
+const VIEW = { once: true, amount: 0.25 } as const
+
 export function V2Cta() {
+  const rm = useReducedMotion()
+
   return (
     <section className="relative flex items-center justify-center py-40 lg:py-0">
       {/* Background */}
@@ -26,22 +34,41 @@ export function V2Cta() {
 
           {/* Text + CTAs */}
           <div className="relative z-10 flex w-[70vw] max-w-2xl flex-col items-center gap-4 text-center lg:gap-6">
-            <h2 className="font-heading text-[2.5rem] font-bold leading-[1.0] tracking-tighter text-white lg:text-[3.75rem]">
+            <motion.h2
+              initial={rm ? false : { opacity: 0, y: 44 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEW}
+              transition={{ duration: 0.75, ease: EASE }}
+              className="font-heading text-[2.5rem] font-bold leading-[1.0] tracking-tighter text-white lg:text-[3.75rem]"
+            >
               a trading app
               <br />
               for the rest of us
-            </h2>
-            <p className="text-sm leading-snug tracking-tight text-white/60 lg:text-[1.375rem]">
-              join 500,000 traders making their name on ChadWallet
-            </p>
+            </motion.h2>
 
-            <div className="pt-3">
-              {/* Mobile: download only */}
+            <motion.p
+              initial={rm ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEW}
+              transition={{ duration: 0.6, delay: 0.12, ease: EASE }}
+              className="text-sm leading-snug tracking-tight text-white/60 lg:text-[1.375rem]"
+            >
+              join 500,000 traders making their name on ChadWallet
+            </motion.p>
+
+            <motion.div
+              initial={rm ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEW}
+              transition={{ duration: 0.55, delay: 0.22, ease: EASE }}
+              className="pt-3"
+            >
+              {/* Mobile */}
               <div className="flex gap-2 lg:hidden">
                 <DownloadButton />
               </div>
 
-              {/* Desktop: start trading + download */}
+              {/* Desktop */}
               <div className="hidden gap-3 lg:flex">
                 <Link
                   href="/trade"
@@ -51,7 +78,7 @@ export function V2Cta() {
                 </Link>
                 <DownloadButton />
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Spinning circles */}
@@ -62,7 +89,7 @@ export function V2Cta() {
             height={600}
             loading="lazy"
             aria-hidden
-            className="absolute inset-0 z-[1] m-auto w-[35vw] animate-[spin_30s_linear_infinite_reverse] lg:w-[30vw]"
+            className="absolute inset-0 z-[1] m-auto w-[35vw] animate-[ctaSpin_30s_linear_infinite_reverse] lg:w-[30vw]"
           />
           <Image
             src="/images/fomo/outer-circle.webp"
@@ -71,13 +98,13 @@ export function V2Cta() {
             height={1200}
             loading="lazy"
             aria-hidden
-            className="absolute inset-0 z-[1] m-auto w-screen max-w-[68rem] animate-[spin_45s_linear_infinite] lg:w-[55vw]"
+            className="absolute inset-0 z-[1] m-auto w-screen max-w-[68rem] animate-[ctaSpin_45s_linear_infinite] lg:w-[55vw]"
           />
         </div>
       </div>
 
       <style>{`
-        @keyframes spin {
+        @keyframes ctaSpin {
           to { transform: rotate(360deg); }
         }
       `}</style>

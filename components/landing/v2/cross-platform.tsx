@@ -1,21 +1,51 @@
+"use client"
+
 import Image from "next/image"
+import { motion, useReducedMotion } from "motion/react"
+
+const EASE = [0.22, 1, 0.36, 1] as const
+
+const VIEW = { once: true, amount: 0.2 } as const
 
 export function V2CrossPlatform() {
+  const rm = useReducedMotion()
+
   return (
     <>
-      {/* Desktop version */}
-      <section className="hidden flex-col items-center gap-3 px-8 py-10 lg:flex">
-        <h2 className="text-center font-heading text-[3.75rem] font-bold leading-[0.95] tracking-tight text-white">
+      {/* ── Desktop ── */}
+      <section className="hidden flex-col items-center gap-3 overflow-hidden px-8 py-10 lg:flex">
+        {/* Heading */}
+        <motion.h2
+          initial={rm ? false : { opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEW}
+          transition={{ duration: 0.7, ease: EASE }}
+          className="text-center font-heading text-[3.75rem] font-bold leading-[0.95] tracking-tight text-white"
+        >
           trade from anywhere.
           <br />
           never lose a beat.
-        </h2>
-        <p className="text-center text-[1.375rem] leading-snug tracking-tight text-white/60">
+        </motion.h2>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={rm ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEW}
+          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+          className="text-center text-[1.375rem] leading-snug tracking-tight text-white/60"
+        >
           Open a trade on your phone, close it on your desktop — all in one app.
-        </p>
+        </motion.p>
 
         {/* App screenshots */}
-        <div className="relative -mt-8 w-full max-w-5xl">
+        <motion.div
+          initial={rm ? false : { opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEW}
+          transition={{ duration: 0.8, delay: 0.18, ease: EASE }}
+          className="relative -mt-8 w-full max-w-5xl"
+        >
           <Image
             src="/images/fomo/fomo-desktop.webp"
             alt="ChadWallet desktop app"
@@ -30,23 +60,38 @@ export function V2CrossPlatform() {
             width={2825}
             height={3251}
             loading="lazy"
-            className="absolute -right-[8%] bottom-[12%] w-[28%] animate-[float_4s_ease-in-out_infinite]"
             aria-hidden
+            className="absolute -right-[8%] bottom-[12%] w-[28%] animate-[float_4s_ease-in-out_infinite]"
           />
-        </div>
+        </motion.div>
       </section>
 
-      {/* Mobile version */}
-      <section className="relative flex text-center lg:hidden">
-        <Image
-          src="/images/fomo/fomo-mobile-app.webp"
-          alt="ChadWallet mobile app"
-          width={1197}
-          height={1164}
-          loading="lazy"
+      {/* ── Mobile ── */}
+      <section className="relative flex overflow-hidden text-center lg:hidden">
+        <motion.div
+          initial={rm ? false : { opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={VIEW}
+          transition={{ duration: 0.7, ease: EASE }}
           className="w-full"
-        />
-        <div className="absolute bottom-0 flex flex-col gap-3 px-8 pb-6">
+        >
+          <Image
+            src="/images/fomo/fomo-mobile-app.webp"
+            alt="ChadWallet mobile app"
+            width={1197}
+            height={1164}
+            loading="lazy"
+            className="w-full"
+          />
+        </motion.div>
+
+        <motion.div
+          initial={rm ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEW}
+          transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
+          className="absolute bottom-0 flex flex-col gap-3 px-8 pb-6"
+        >
           <h2 className="font-heading text-[2.25rem] font-bold leading-none tracking-tighter text-white">
             trade from anywhere.
             <br />
@@ -56,7 +101,7 @@ export function V2CrossPlatform() {
             Pick up a trade on your phone, close it on your desktop — all in one
             app.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       <style>{`

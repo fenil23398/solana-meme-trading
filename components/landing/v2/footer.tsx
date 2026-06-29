@@ -1,7 +1,13 @@
+"use client"
+
 import Link from "next/link"
+import { motion, useReducedMotion } from "motion/react"
 
 import { BrandLogo } from "@/components/landing/brand-logo"
 import { APP_LINKS, SOCIAL_LINKS } from "@/lib/constants"
+
+const EASE = [0.22, 1, 0.36, 1] as const
+const VIEW = { once: true, amount: 0.15 } as const
 
 const FOOTER_LINKS = {
   About: [
@@ -22,10 +28,18 @@ const FOOTER_LINKS = {
 } as const
 
 export function V2Footer() {
+  const rm = useReducedMotion()
+
   return (
     <footer className="border-t border-white/[0.06] bg-[#080404] px-5 py-14 sm:px-6 sm:py-16 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
+        <motion.div
+          initial={rm ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEW}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between"
+        >
           {/* Brand + tagline */}
           <div className="shrink-0">
             <Link href="/">
@@ -65,13 +79,19 @@ export function V2Footer() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <div className="mt-12 border-t border-white/[0.06] pt-7">
+        <motion.div
+          initial={rm ? false : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={VIEW}
+          transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
+          className="mt-12 border-t border-white/[0.06] pt-7"
+        >
           <p className="text-sm text-white/25">
             © {new Date().getFullYear()} Chad Wallet L.L.C.
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   )
