@@ -1,18 +1,19 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 
+import { CtaSection } from "@/components/landing/cta-section"
+import { CrossPlatform } from "@/components/landing/cross-platform"
+import { Footer } from "@/components/landing/footer"
+import { Header } from "@/components/landing/header"
+import { Hero } from "@/components/landing/hero"
+import { OutrunBots } from "@/components/landing/outrun-bots"
 import { TokenTicker } from "@/components/landing/token-ticker"
-import { V2Cta } from "@/components/landing/v2/cta"
-import { V2CrossPlatform } from "@/components/landing/v2/cross-platform"
-import { V2Features } from "@/components/landing/v2/features"
-import { V2Footer } from "@/components/landing/v2/footer"
-import { V2Header } from "@/components/landing/v2/header"
-import { V2Hero } from "@/components/landing/v2/hero"
+import { WhyChadWallet } from "@/components/landing/why-chadwallet"
 import { getQueryClient } from "@/lib/get-query-client"
 import { queryKeys } from "@/lib/queries/keys"
 import { getTradingTrending } from "@/lib/queries/trending.server"
 import { getStaleTrendingCache } from "@/lib/trending-cache"
 
-export default async function Page() {
+export default async function LandingV2Page() {
   const queryClient = getQueryClient()
 
   try {
@@ -32,14 +33,15 @@ export default async function Page() {
       <div className="min-h-svh overflow-x-hidden bg-[#080404]">
         <TokenTicker className="fixed top-0 z-[60] w-full border-b border-white/[0.06]" />
         <div className="pb-10 pt-9">
-          <V2Header />
+          <Header />
           <main>
-            <V2Hero />
-            <V2CrossPlatform />
-            <V2Features />
-            <V2Cta />
+            <Hero />
+            <WhyChadWallet />
+            <OutrunBots />
+            <CrossPlatform />
+            <CtaSection />
           </main>
-          <V2Footer />
+          <Footer />
         </div>
         <TokenTicker className="fixed bottom-0 z-[60] w-full border-t border-white/[0.06] pb-[env(safe-area-inset-bottom)]" />
       </div>
