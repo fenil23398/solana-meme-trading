@@ -124,7 +124,7 @@ export function getTokenIconCandidatesForAddress(address: string): string[] {
 export function iconFetchHeaders(url: string): HeadersInit {
   const headers: Record<string, string> = {
     accept: "image/*",
-    "user-agent": "Mozilla/5.0 (compatible; ChadWallet/1.0)",
+    "user-agent": "Mozilla/5.0 (compatible; fomo.family/1.0)",
   }
 
   try {

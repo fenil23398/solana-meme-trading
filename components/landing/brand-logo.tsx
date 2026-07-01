@@ -25,7 +25,7 @@ export function BrandLogo({
     <div className={cn("flex items-center gap-3", className)}>
       <Image
         src={LOGO_SRC}
-        alt="ChadWallet"
+        alt="fomo.family"
         width={image}
         height={image}
         className={cn("shrink-0", imageClass)}
@@ -33,7 +33,7 @@ export function BrandLogo({
       />
       {showName ? (
         <span className="font-heading text-[17px] font-semibold tracking-[-0.02em] text-white sm:text-lg">
-          ChadWallet
+          fomo.family
         </span>
       ) : null}
     </div>

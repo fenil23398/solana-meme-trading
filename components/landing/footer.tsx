@@ -1,14 +1,14 @@
 import Link from "next/link"
 
-import { BrandLogo } from "@/components/landing/brand-logo"
+import { FomoLogo } from "@/components/landing/v2/fomo-logo"
 import { ScrollReveal } from "@/components/landing/scroll-reveal"
 import { APP_LINKS, SOCIAL_LINKS } from "@/lib/constants"
 
 const FOOTER_LINKS = {
   about: [
-    { label: "Blog", href: "https://www.chadwallet.xyz" },
-    { label: "FAQ", href: "https://www.chadwallet.xyz" },
-    { label: "Rewards", href: "https://www.chadwallet.xyz/rewards" },
+    { label: "Blog", href: "https://fomo.family/blog" },
+    { label: "FAQ", href: "https://fomo.family/answers" },
+    { label: "Affiliates", href: "https://fomo.family/affiliates" },
   ],
   social: [
     { label: "Discord", href: SOCIAL_LINKS.discord },
@@ -16,8 +16,8 @@ const FOOTER_LINKS = {
     { label: "Telegram", href: SOCIAL_LINKS.telegram },
   ],
   legal: [
-    { label: "Privacy Policy", href: "https://www.chadwallet.xyz" },
-    { label: "Terms of Service", href: "https://www.chadwallet.xyz" },
+    { label: "Privacy Policy", href: "https://fomo.family/privacy-policy" },
+    { label: "Terms of Service", href: "https://fomo.family/terms" },
   ],
 } as const
 
@@ -29,7 +29,7 @@ export function Footer() {
           <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
             <div>
               <Link href="/">
-                <BrandLogo size="sm" />
+                <FomoLogo className="h-[16px] text-[#CBD0EB]" />
               </Link>
               <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/40">
                 Where traders become legends.
@@ -85,7 +85,7 @@ export function Footer() {
           </div>
 
           <div className="mt-14 border-t border-white/[0.06] pt-8 text-center text-sm text-white/30">
-            © {new Date().getFullYear()} Chad Wallet L.L.C.
+            © {new Date().getFullYear()} fomo.family
           </div>
         </ScrollReveal>
       </div>

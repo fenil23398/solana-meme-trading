@@ -2,6 +2,20 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@font-face {
+  font-family: "Aeonik";
+  src: url("/fonts/Aeonik-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("/fonts/Aeonik-Medium.woff2") format("woff2");
+  font-weight: 500 800;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -17,6 +31,15 @@
     --color-landing-alt: #121212;
     --color-landing-ticker: #060303;
     --color-landing-footer: #050303;
+    /* fomo.family color palette */
+    --color-fomo-bg: #060510;
+    --color-fomo-elevated: #0d0b1a;
+    --color-fomo-card: #0f0d1e;
+    --color-fomo-accent: #606AF7;
+    --color-fomo-accent-muted: #606AF780;
+    --color-fomo-accent-soft: #606AF730;
+    --color-fomo-text: #EAEDFF;
+    --color-fomo-text-secondary: #D1D8FF99;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -163,6 +186,21 @@
   .font-mono {
     font-family: var(--font-mono), ui-monospace, monospace;
   }
+  .font-aeonik {
+    font-family: "Aeonik", system-ui, sans-serif;
+  }
+  /* Applied to the fomo landing page wrapper */
+  .fomo-page,
+  .fomo-page h1,
+  .fomo-page h2,
+  .fomo-page h3,
+  .fomo-page h4,
+  .fomo-page p,
+  .fomo-page span,
+  .fomo-page a,
+  .fomo-page button {
+    font-family: "Aeonik", system-ui, sans-serif;
+  }
   .text-balance {
     text-wrap: balance;
   }
@@ -180,5 +218,12 @@
   }
   .section-subtitle {
     @apply text-base leading-relaxed text-white/55 sm:text-lg;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

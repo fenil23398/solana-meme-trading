@@ -25,8 +25,18 @@ export function V2Cta() {
       />
 
       {/* Fades */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#080404] to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#080404] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#060510]/80 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#060510]/80 to-transparent" />
+
+      {/* Purple glow */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-30"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 40% at 50% 60%, #606AF740, transparent)",
+        }}
+        aria-hidden
+      />
 
       {/* Content */}
       <div className="relative z-10 w-[80vw] px-8">
@@ -39,7 +49,7 @@ export function V2Cta() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEW}
               transition={{ duration: 0.75, ease: EASE }}
-              className="font-heading text-[2.5rem] font-bold leading-[1.0] tracking-tighter text-white lg:text-[3.75rem]"
+              className="text-[2.5rem] font-bold leading-[1.0] tracking-[-0.04em] text-[#EAEDFF] lg:text-[3.75rem]"
             >
               a trading app
               <br />
@@ -51,9 +61,9 @@ export function V2Cta() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEW}
               transition={{ duration: 0.6, delay: 0.12, ease: EASE }}
-              className="text-sm leading-snug tracking-tight text-white/60 lg:text-[1.375rem]"
+              className="text-sm font-medium leading-snug tracking-tight text-[#D1D8FF60] lg:text-[1.375rem]"
             >
-              join 500,000 traders making their name on ChadWallet
+              join 500,000 traders making their name on fomo.family
             </motion.p>
 
             <motion.div
@@ -72,7 +82,13 @@ export function V2Cta() {
               <div className="hidden gap-3 lg:flex">
                 <Link
                   href="/trade"
-                  className="flex h-12 min-w-[11rem] items-center justify-center rounded-xl border border-white/[0.15] bg-[#606AF7]/50 text-[15px] font-bold text-white backdrop-blur-md transition-colors hover:bg-[#606AF7]/80"
+                  className="relative flex h-12 min-w-[11rem] items-center justify-center overflow-hidden rounded-xl text-[15px] font-semibold text-white transition-all duration-200 hover:opacity-90"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #606AF7 0%, #8B6CF7 50%, #A56BF7 100%)",
+                    boxShadow:
+                      "0 0 32px 0 #606AF740, 0 4px 16px 0 #606AF730",
+                  }}
                 >
                   Start trading
                 </Link>

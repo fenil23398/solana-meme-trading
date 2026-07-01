@@ -1,4 +1,4 @@
-import { BrandLogo } from "@/components/landing/brand-logo"
+import { FomoLogo } from "@/components/landing/v2/fomo-logo"
 import { AppStoreButtons } from "@/components/landing/app-store-buttons"
 import { LandingSection } from "@/components/landing/landing-section"
 import { ScrollReveal } from "@/components/landing/scroll-reveal"
@@ -16,7 +16,7 @@ export function CtaSection() {
       <div className="relative">
         <ScrollReveal>
           <div className="flex justify-center">
-            <BrandLogo size="lg" showName={false} />
+            <FomoLogo className="h-8 text-[#CBD0EB]" />
           </div>
         </ScrollReveal>
 
@@ -29,7 +29,7 @@ export function CtaSection() {
 
         <ScrollReveal delay={0.18}>
           <p className="section-subtitle mx-auto mt-6 max-w-md">
-            Join thousands of traders making their name on ChadWallet. Solana
+            Join thousands of traders making their name on fomo.family. Solana
             memecoins, zero complexity.
           </p>
         </ScrollReveal>

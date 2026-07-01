@@ -20,7 +20,7 @@ export function V2CrossPlatform() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEW}
           transition={{ duration: 0.7, ease: EASE }}
-          className="text-center font-heading text-[3.75rem] font-bold leading-[0.95] tracking-tight text-white"
+          className="text-center text-[3.75rem] font-bold leading-[0.95] tracking-[-0.04em] text-[#EAEDFF]"
         >
           trade from anywhere.
           <br />
@@ -33,7 +33,7 @@ export function V2CrossPlatform() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEW}
           transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-          className="text-center text-[1.375rem] leading-snug tracking-tight text-white/60"
+          className="text-center text-[1.375rem] font-medium leading-snug tracking-tight text-[#D1D8FF55]"
         >
           Open a trade on your phone, close it on your desktop — all in one app.
         </motion.p>
@@ -48,7 +48,7 @@ export function V2CrossPlatform() {
         >
           <Image
             src="/images/fomo/fomo-desktop.webp"
-            alt="ChadWallet desktop app"
+            alt="fomo.family desktop app"
             width={2889}
             height={2783}
             className="w-full"
@@ -77,7 +77,7 @@ export function V2CrossPlatform() {
         >
           <Image
             src="/images/fomo/fomo-mobile-app.webp"
-            alt="ChadWallet mobile app"
+            alt="fomo.family mobile app"
             width={1197}
             height={1164}
             loading="lazy"
@@ -92,12 +92,12 @@ export function V2CrossPlatform() {
           transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           className="absolute bottom-0 flex flex-col gap-3 px-8 pb-6"
         >
-          <h2 className="font-heading text-[2.25rem] font-bold leading-none tracking-tighter text-white">
+          <h2 className="text-[2.25rem] font-bold leading-none tracking-[-0.04em] text-[#EAEDFF]">
             trade from anywhere.
             <br />
             never lose a beat.
           </h2>
-          <p className="leading-snug tracking-tight text-white/60">
+          <p className="leading-snug tracking-tight text-[#D1D8FF55]">
             Pick up a trade on your phone, close it on your desktop — all in one
             app.
           </p>

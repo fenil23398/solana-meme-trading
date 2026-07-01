@@ -5,9 +5,10 @@ export const APP_LINKS = {
 } as const
 
 export const SOCIAL_LINKS = {
-  twitter: "https://x.com/chadwallet",
-  discord: "https://discord.gg/chadwallet",
-  telegram: "https://t.me/chadwallet",
+  twitter: "https://x.com/fomo",
+  discord: "https://discord.com/invite/fomofamily",
+  telegram: "https://t.me/fomofamily",
+  youtube: "https://www.youtube.com/channel/UCQAgxFZYn2GhYKrXG4ypnUg",
 } as const
 
 export type TickerToken = {
@@ -64,7 +65,7 @@ export const OUTRUN_BOTS = [
     icon: "copy" as const,
   },
   {
-    title: "Earn $CHAD points on every fill",
+    title: "Earn points on every fill",
     description:
       "Get rewarded every time you trade. Stack points and unlock exclusive perks.",
     icon: "coins" as const,

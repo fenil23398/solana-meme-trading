@@ -19,7 +19,7 @@ export function WhyChadWallet() {
   return (
     <LandingSection id="why-chadwallet" variant="elevated">
       <ScrollReveal className="mx-auto max-w-2xl text-center">
-        <h2 className="section-title">Why ChadWallet?</h2>
+        <h2 className="section-title">Why fomo.family?</h2>
         <p className="section-subtitle mx-auto mt-5 max-w-lg">
           Everything you need to trade Solana memecoins — social alpha, instant
           execution, and smarter research in one app.

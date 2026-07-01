@@ -26,9 +26,9 @@ function mobileStoreUrl() {
 
 const VARIANT_CLASS: Record<Variant, string> = {
   frosted:
-    "border border-white/[0.15] bg-white/[0.12] text-white backdrop-blur-md hover:bg-white/20",
+    "border border-[#EAEDFF18] bg-[#EAEDFF0c] text-[#EAEDFF] backdrop-blur-md hover:bg-[#EAEDFF18] hover:border-[#EAEDFF30]",
   purple:
-    "border border-white/[0.15] bg-[#606AF7]/50 text-white backdrop-blur-md hover:bg-[#606AF7]/80",
+    "border border-[#606AF730] bg-[#606AF720] text-[#9BA4FA] backdrop-blur-md hover:bg-[#606AF740] hover:border-[#606AF760] hover:text-[#EAEDFF]",
 }
 
 export function DownloadButton({

@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 import { AuthButton } from "@/components/trading/auth-button"
-import { BrandLogo } from "@/components/landing/brand-logo"
+import { FomoLogo } from "@/components/landing/v2/fomo-logo"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -11,7 +11,7 @@ export function TradingHeader() {
       <div className="mx-auto flex h-14 max-w-[1600px] items-center justify-between gap-4 px-2 sm:h-16 sm:px-4 lg:px-6">
         <div className="flex min-w-0 items-center gap-4">
           <Link href="/" className="min-w-0">
-            <BrandLogo size="sm" className="min-w-0" />
+            <FomoLogo className="h-[16px] text-[#CBD0EB]" />
           </Link>
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 sm:inline">
             Trade

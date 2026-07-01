@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { BrandLogo } from "@/components/landing/brand-logo"
+import { FomoLogo } from "@/components/landing/v2/fomo-logo"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -9,7 +9,7 @@ export function Header() {
     <header className="sticky top-9 z-50 border-b border-white/[0.06] bg-[#080404]/90 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-2 sm:h-16 sm:px-6 lg:px-8">
         <Link href="/" className="min-w-0">
-          <BrandLogo size="sm" className="min-w-0" />
+          <FomoLogo className="h-[16px] text-[#CBD0EB]" />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -22,15 +22,6 @@ export function Header() {
           >
             Trade
           </Link>
-          {/* <Link
-            href="#why-chadwallet"
-            className={cn(
-              buttonVariants({ variant: "ghost" }),
-              "text-[14px] font-medium text-white/60 hover:bg-white/[0.04] hover:text-white"
-            )}
-          >
-            Features
-          </Link> */}
           <Link
             href="#download"
             className={cn(

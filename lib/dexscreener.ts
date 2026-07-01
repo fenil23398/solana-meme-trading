@@ -1,10 +1,26 @@
 import { buildDexScreenerBoostIconUrl } from "@/lib/token-icon"
-import type { TokenDetail } from "@/lib/types/trading"
+import type { TokenDetail, TokenSocial } from "@/lib/types/trading"
 
 type DexScreenerToken = {
   address?: string
   name?: string
   symbol?: string
+}
+
+type DexScreenerTxns = {
+  buys?: number
+  sells?: number
+}
+
+type DexScreenerSocial = {
+  type?: string
+  url?: string
+}
+
+type DexScreenerInfo = {
+  imageUrl?: string
+  socials?: DexScreenerSocial[]
+  websites?: { url?: string }[]
 }
 
 type DexScreenerPair = {
@@ -15,16 +31,30 @@ type DexScreenerPair = {
   quoteToken?: DexScreenerToken
   priceUsd?: string
   priceChange?: {
+    m5?: number
+    h1?: number
+    h6?: number
     h24?: number
   }
   volume?: {
+    m5?: number
+    h1?: number
+    h6?: number
     h24?: number
+  }
+  txns?: {
+    m5?: DexScreenerTxns
+    h1?: DexScreenerTxns
+    h6?: DexScreenerTxns
+    h24?: DexScreenerTxns
   }
   liquidity?: {
     usd?: number
   }
   marketCap?: number
   fdv?: number
+  pairCreatedAt?: number
+  info?: DexScreenerInfo
 }
 
 type DexScreenerTokensResponse = {
@@ -34,12 +64,27 @@ type DexScreenerTokensResponse = {
 export type DexScreenerMarket = {
   pairAddress: string
   priceUsd: number
+  priceChange5m: number
+  priceChange1h: number
+  priceChange6h: number
   priceChange24h: number
   volume24h: number
+  volume6h: number
+  volume1h: number
   liquidity: number
   marketCap: number
+  fdv: number
+  buys24h: number
+  sells24h: number
+  buys1h: number
+  sells1h: number
   symbol: string
   name: string
+  pairCreatedAt?: number
+  dex?: string
+  socials: TokenSocial[]
+  websites: string[]
+  icon?: string
 }
 
 function parseUsd(value?: string | number) {
@@ -64,15 +109,38 @@ function mapDexPairToMarket(
   const isBase = pair.baseToken?.address?.toLowerCase() === tokenAddress.toLowerCase()
   const token = isBase ? pair.baseToken : pair.quoteToken
 
+  const socials: TokenSocial[] = (pair.info?.socials ?? [])
+    .filter((s): s is { type: string; url: string } => !!(s.type && s.url))
+    .map((s) => ({ type: s.type, url: s.url }))
+
+  const websites: string[] = (pair.info?.websites ?? [])
+    .map((w) => w.url)
+    .filter((u): u is string => !!u)
+
   return {
     pairAddress: pair.pairAddress,
     priceUsd: parseUsd(pair.priceUsd),
+    priceChange5m: pair.priceChange?.m5 ?? 0,
+    priceChange1h: pair.priceChange?.h1 ?? 0,
+    priceChange6h: pair.priceChange?.h6 ?? 0,
     priceChange24h: pair.priceChange?.h24 ?? 0,
     volume24h: pair.volume?.h24 ?? 0,
+    volume6h: pair.volume?.h6 ?? 0,
+    volume1h: pair.volume?.h1 ?? 0,
     liquidity: pair.liquidity?.usd ?? 0,
     marketCap: pair.marketCap ?? pair.fdv ?? 0,
+    fdv: pair.fdv ?? pair.marketCap ?? 0,
+    buys24h: pair.txns?.h24?.buys ?? 0,
+    sells24h: pair.txns?.h24?.sells ?? 0,
+    buys1h: pair.txns?.h1?.buys ?? 0,
+    sells1h: pair.txns?.h1?.sells ?? 0,
     symbol: token?.symbol ?? "???",
     name: token?.name ?? token?.symbol ?? "Unknown",
+    pairCreatedAt: pair.pairCreatedAt,
+    dex: pair.dexId,
+    socials,
+    websites,
+    icon: pair.info?.imageUrl,
   }
 }
 
@@ -125,10 +193,26 @@ export function mergeDexScreenerIntoOverview(
   return {
     ...overview,
     price: market.priceUsd,
+    priceChange5m: market.priceChange5m,
+    priceChange1h: market.priceChange1h,
+    priceChange6h: market.priceChange6h,
     priceChange24h: market.priceChange24h,
     volume24h: market.volume24h > 0 ? market.volume24h : overview.volume24h,
+    volume6h: market.volume6h,
+    volume1h: market.volume1h,
     liquidity: market.liquidity > 0 ? market.liquidity : overview.liquidity,
     marketCap: market.marketCap > 0 ? market.marketCap : overview.marketCap,
+    fdv: market.fdv > 0 ? market.fdv : overview.fdv,
+    buys24h: market.buys24h,
+    sells24h: market.sells24h,
+    buys1h: market.buys1h,
+    sells1h: market.sells1h,
+    pairAddress: market.pairAddress,
+    pairCreatedAt: market.pairCreatedAt,
+    dex: market.dex,
+    socials: market.socials.length > 0 ? market.socials : overview.socials,
+    websites: market.websites.length > 0 ? market.websites : overview.websites,
+    icon: overview.icon ?? market.icon,
   }
 }
 
@@ -141,10 +225,26 @@ export function overviewFromDexScreenerMarket(
     symbol: market.symbol,
     name: market.name,
     price: market.priceUsd,
+    priceChange5m: market.priceChange5m,
+    priceChange1h: market.priceChange1h,
+    priceChange6h: market.priceChange6h,
     priceChange24h: market.priceChange24h,
     volume24h: market.volume24h,
+    volume6h: market.volume6h,
+    volume1h: market.volume1h,
     liquidity: market.liquidity,
     marketCap: market.marketCap,
+    fdv: market.fdv,
+    buys24h: market.buys24h,
+    sells24h: market.sells24h,
+    buys1h: market.buys1h,
+    sells1h: market.sells1h,
+    pairAddress: market.pairAddress,
+    pairCreatedAt: market.pairCreatedAt,
+    dex: market.dex,
+    socials: market.socials,
+    websites: market.websites,
+    icon: market.icon,
   }
 }
 
@@ -174,21 +274,15 @@ type DexBoostItem = {
 function mapDexPairToTokenDetail(
   pair: DexScreenerPair,
   tokenAddress: string,
-  icon?: string
+  boostIcon?: string
 ): TokenDetail | null {
   const market = mapDexPairToMarket(pair, tokenAddress)
   if (!market || market.priceUsd <= 0) return null
 
   return {
-    address: tokenAddress,
-    symbol: market.symbol,
-    name: market.name,
-    price: market.priceUsd,
-    priceChange24h: market.priceChange24h,
-    volume24h: market.volume24h,
-    liquidity: market.liquidity,
-    marketCap: market.marketCap,
-    icon,
+    ...overviewFromDexScreenerMarket(tokenAddress, market),
+    // Prefer boost icon over pair info icon for the sidebar thumbnails
+    icon: boostIcon ?? market.icon,
   }
 }
 
@@ -241,7 +335,15 @@ export async function fetchDexScreenerTrendingTokens(
       }
     }
 
+    // Deduplicate: preserve original boost order, one entry per address
+    const seen = new Set<string>()
     return addresses
+      .filter((address) => {
+        const key = address.toLowerCase()
+        if (seen.has(key)) return false
+        seen.add(key)
+        return true
+      })
       .map((address) => byAddress.get(address.toLowerCase()))
       .filter((token): token is TokenDetail => token != null)
   } catch {

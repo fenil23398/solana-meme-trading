@@ -1,3 +1,8 @@
+export type TokenSocial = {
+  type: string
+  url: string
+}
+
 export type TokenDetail = {
   address: string
   symbol: string
@@ -10,6 +15,22 @@ export type TokenDetail = {
   totalSupply?: number
   holderCount?: number
   icon?: string
+  // Extended DexScreener fields
+  fdv?: number
+  priceChange5m?: number
+  priceChange1h?: number
+  priceChange6h?: number
+  volume1h?: number
+  volume6h?: number
+  buys24h?: number
+  sells24h?: number
+  buys1h?: number
+  sells1h?: number
+  pairAddress?: string
+  pairCreatedAt?: number
+  dex?: string
+  socials?: TokenSocial[]
+  websites?: string[]
 }
 
 export type OhlcvCandle = {

@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { useMemo } from "react"
 
 import { TokenImage } from "@/components/ui/token-image"
@@ -38,16 +37,17 @@ function TickerItem({
     </>
   )
 
-  if (address && !address.startsWith("fallback-")) {
-    return (
-      <Link
-        href={`/trade/${address}`}
-        className="inline-flex shrink-0 items-center gap-1.5 px-3 transition-opacity hover:opacity-80 sm:gap-2 sm:px-5"
-      >
-        {content}
-      </Link>
-    )
-  }
+  // Links disabled — trading page commented out
+  // if (address && !address.startsWith("fallback-")) {
+  //   return (
+  //     <Link
+  //       href={`/trade/${address}`}
+  //       className="inline-flex shrink-0 items-center gap-1.5 px-3 transition-opacity hover:opacity-80 sm:gap-2 sm:px-5"
+  //     >
+  //       {content}
+  //     </Link>
+  //   )
+  // }
 
   return (
     <span className="inline-flex shrink-0 items-center gap-1.5 px-3 sm:gap-2 sm:px-5">

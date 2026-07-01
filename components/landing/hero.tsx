@@ -1,7 +1,8 @@
 import Image from "next/image"
 
 import { AppStoreButtons } from "@/components/landing/app-store-buttons"
-import { BrandLogo, PhoneMockup } from "@/components/landing/brand-logo"
+import { PhoneMockup } from "@/components/landing/brand-logo"
+import { FomoLogo } from "@/components/landing/v2/fomo-logo"
 import { LandingSection } from "@/components/landing/landing-section"
 import { HeroReveal } from "@/components/landing/scroll-reveal"
 
@@ -17,7 +18,7 @@ export function Hero() {
       <div className="relative grid min-w-0 items-center gap-12 sm:gap-14 lg:grid-cols-2 lg:gap-20">
         <div className="flex min-w-0 flex-col items-center text-center lg:items-start lg:text-left">
           <HeroReveal delay={0.05}>
-            <BrandLogo size="lg" className="mb-6 lg:mb-8" />
+            <FomoLogo className="mb-6 h-7 text-[#CBD0EB] lg:mb-8" />
           </HeroReveal>
 
           <HeroReveal delay={0.12}>
