@@ -1,7 +1,6 @@
 export const APP_LINKS = {
-  android:
-    "https://play.google.com/store/apps/details?id=xyz.chadwallet.www",
-  ios: "https://apps.apple.com/us/app/chadwallet/id6757367474",
+  android: "https://play.google.com/store/apps/details?id=family.fomo.app",
+  ios: "https://apps.apple.com/us/app/fomo-never-miss-out/id6741115427",
 } as const
 
 export const SOCIAL_LINKS = {
